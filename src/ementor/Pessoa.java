@@ -9,7 +9,7 @@ package ementor;
  * @author Vincenzo
  */
 public class Pessoa {
-    protected String nome, data_nascimento, telefone;
+    protected String nome, data_nascimento, telefone, rua, bairro, cidade, estado;
     protected long CPF;
 
     public Pessoa () {
@@ -17,12 +17,21 @@ public class Pessoa {
         this.data_nascimento = "";
         this.CPF = 0;
         this.telefone = "";
+        this.rua = "";
+        this.bairro = "";
+        this.cidade = "";
+        this.estado = "";
     }
-    public Pessoa(String nome, String data_nascimento, long CPF, String telefone) {
+
+    public Pessoa(String nome, String data_nascimento, String telefone, String rua, String bairro, String cidade, String estado, long CPF) {
         this.nome = nome;
         this.data_nascimento = data_nascimento;
-        this.CPF = CPF;
         this.telefone = telefone;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.CPF = CPF;
     }
 
     public String getNome() {
@@ -41,14 +50,6 @@ public class Pessoa {
         this.data_nascimento = data_nascimento;
     }
 
-    public long getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(long CPF) {
-        this.CPF = CPF;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -56,6 +57,44 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public long getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(long CPF) {
+        this.CPF = CPF;
+    }
 }

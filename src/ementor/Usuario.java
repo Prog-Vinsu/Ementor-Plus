@@ -79,7 +79,7 @@ public class Usuario {
         cone =  new ConexoesMySQL().realizaConexaoMySQL();
 
         try {
-            String sql = "Select * from ementor.usuario where login = ? and senha = ?";
+            String sql = "Select * from ementor.usuario where NomeUsuario = ? and Senha = ?";
             
             PreparedStatement pstm =  cone.prepareStatement(sql);   //A string a ser modificada
             pstm.setString(1, objusuario.getNome());      //Na primeira interrogacao, coloca o que retornr de "objusuario.getNome_usuario()"

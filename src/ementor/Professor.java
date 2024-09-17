@@ -11,19 +11,40 @@ package ementor;
 public class Professor extends Pessoa {
     private String data_admissao;
     private double salario_bruto;
+    boolean CargoChefia, CargoCoordenador;
     
     public Professor() {
         super();
         this.data_admissao = "";
         this.salario_bruto = 0;
+        this.CargoChefia = false;
+        this.CargoCoordenador = false;
     }
 
-    public Professor(String data_admissao, double salario_bruto, String nome, String data_nascimento, long CPF, String telefone) {
-        super(nome, data_nascimento, CPF, telefone);
+    public Professor(String data_admissao, double salario_bruto, String nome, String data_nascimento, long CPF, String telefone, String rua, String bairro, String cidade, String estado, boolean cargoChefia, boolean cargoCoordenador) {
+        super(nome, data_nascimento, telefone, rua, bairro, cidade, estado, CPF);
         this.data_admissao = data_admissao;
         this.salario_bruto = salario_bruto;
+        this.CargoChefia = cargoChefia;
+        this.CargoCoordenador = cargoCoordenador;
     }
 
+    public boolean isCargoChefia() {
+        return CargoChefia;
+    }
+
+    public void setCargoChefia(boolean CargoChefia) {
+        this.CargoChefia = CargoChefia;
+    }
+
+    public boolean isCargoCoordenador() {
+        return CargoCoordenador;
+    }
+
+    public void setCargoCoordenador(boolean CargoCoordenador) {
+        this.CargoCoordenador = CargoCoordenador;
+    }
+    
     public String getData_admissao() {
         return data_admissao;
     }

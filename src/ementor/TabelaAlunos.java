@@ -1,20 +1,19 @@
-
 package ementor;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Vincenzo
  */
 public class TabelaAlunos extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form TabelaAlunos
      */
@@ -33,6 +32,10 @@ public class TabelaAlunos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela_Alunos = new javax.swing.JTable();
+        ExibirNotas = new javax.swing.JButton();
+        MatriculaAluno = new javax.swing.JTextField();
+        botaoCadastrarNotas = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dados dos Alunos");
@@ -61,15 +64,50 @@ public class TabelaAlunos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tabela_Alunos);
 
+        ExibirNotas.setText("Consultar notas");
+        ExibirNotas.setToolTipText("");
+        ExibirNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExibirNotasActionPerformed(evt);
+            }
+        });
+
+        botaoCadastrarNotas.setText("Cadastrar notas");
+        botaoCadastrarNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarNotasActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("CPF");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(MatriculaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ExibirNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCadastrarNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MatriculaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ExibirNotas)
+                .addGap(18, 18, 18)
+                .addComponent(botaoCadastrarNotas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -77,23 +115,49 @@ public class TabelaAlunos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ArrayList <Aluno> ListaAlunos = new ArrayList(); 
-        
+        ArrayList<Aluno> ListaAlunos = new ArrayList();
+
         ConexoesMySQL conec = new ConexoesMySQL();
-        ListaAlunos = conec.recuperaDadosDoMySQL("Nome");
-        
+        ListaAlunos = conec.recuperaDadosAlunoDoMySQL("Nome");
+
         DefaultTableModel Tabela = (DefaultTableModel) TabelaAlunos.Tabela_Alunos.getModel();
-        for(Aluno obj: ListaAlunos) {
-            Tabela.addRow(new Object[] {obj.nome, obj.CPF, 
-                                        obj.data_nascimento,
-                                        obj.telefone,
-                                        obj.getMatricula(),
-                                        obj.getPeriodo()});
+        for (Aluno obj : ListaAlunos) {
+            Tabela.addRow(new Object[]{obj.nome, obj.CPF,
+                obj.data_nascimento,
+                obj.telefone,
+                obj.getMatricula(),
+                obj.getPeriodo()});
         }
-        
-        
     }//GEN-LAST:event_formWindowOpened
-    
+
+    private void ExibirNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExibirNotasActionPerformed
+        ConexoesMySQL conec = new ConexoesMySQL();
+        Aluno aluno = null;
+        String matricula = "";
+        String cpf = MatriculaAluno.getText();
+        if (cpf != "") {
+            aluno = conec.buscaAluno(cpf);
+            matricula = aluno.getMatricula() + "";
+            ExibirNotas.setEnabled(true);
+        }
+
+        if (aluno == null) {
+            JOptionPane.showMessageDialog(null, "Aluno não encontrado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else {
+            ArrayList<Notas> notas = new ArrayList();
+            notas = conec.recuperaNotasAlunoDoMySQL(matricula);
+           
+            TabelaNotas tabela = new TabelaNotas();
+            tabela.preencherTabelaNotas(notas);
+            tabela.setVisible(true);
+        }
+    }//GEN-LAST:event_ExibirNotasActionPerformed
+
+    private void botaoCadastrarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarNotasActionPerformed
+        CadastroNotas newNotas = new CadastroNotas();
+        newNotas.setVisible(true);
+    }//GEN-LAST:event_botaoCadastrarNotasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -130,7 +194,11 @@ public class TabelaAlunos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ExibirNotas;
+    private javax.swing.JTextField MatriculaAluno;
     public static javax.swing.JTable Tabela_Alunos;
+    private javax.swing.JButton botaoCadastrarNotas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

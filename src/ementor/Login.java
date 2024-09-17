@@ -37,6 +37,7 @@ public class Login extends javax.swing.JFrame {
 
             if (rsusuario.next()) {  //.next() quer dizer que tem pelo menos 1 resultado
                 Cadastre telaCadastro = new Cadastre();
+                telaCadastro.niveis();
                 telaCadastro.setVisible(true);
 
                 dispose();           //para fechar a tela de login
@@ -229,7 +230,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField TSenha;
-    private javax.swing.JTextField TUsuario;
+    public static javax.swing.JTextField TUsuario;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

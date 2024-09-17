@@ -4,6 +4,8 @@
  */
 package ementor;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Vincenzo
@@ -16,7 +18,6 @@ public class Ementor {
     public static void main(String[] args) {
       Login MinhaJanela = new Login();
       MinhaJanela.setVisible(true);
-       
       //MinhaJanela.getb
     }
     

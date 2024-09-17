@@ -13,32 +13,48 @@ import javax.swing.table.DefaultTableModel;
  * @author Vincenzo
  */
 public class Cadastre extends javax.swing.JFrame {
+
     static ArrayList<Aluno> dadosAluno = new ArrayList();
-    static ArrayList<Professor> dadosProfessor = new ArrayList();   
-    
+    static ArrayList<Professor> dadosProfessor = new ArrayList();
+
     public static void dadosAlunos() {
         DefaultTableModel Tabela = (DefaultTableModel) TabelaAlunos.Tabela_Alunos.getModel();
-        for(Aluno obj: dadosAluno) {
-            Tabela.addRow(new Object[] {obj.nome, obj.CPF, 
-                                        obj.data_nascimento,
-                                        obj.telefone,
-                                        obj.getMatricula(),
-                                        obj.getPeriodo()});
+        for (Aluno obj : dadosAluno) {
+            Tabela.addRow(new Object[]{obj.nome, obj.CPF,
+                obj.data_nascimento,
+                obj.telefone,
+                obj.getMatricula(),
+                obj.getPeriodo()});
         }
     }
-    
+
     public static void dadosProfessores() {
         DefaultTableModel Tabela = (DefaultTableModel) TabelaProfessores.Tabela_Professores.getModel();
-        for(Professor obj: dadosProfessor) {
-            Tabela.addRow(new Object[] {obj.nome, obj.CPF, 
-                                        obj.data_nascimento,
-                                        obj.telefone,
-                                        obj.getData_admissao(),
-                                        obj.getSalario_bruto()});
+        for (Professor obj : dadosProfessor) {
+            Tabela.addRow(new Object[]{obj.nome, obj.CPF,
+                obj.data_nascimento,
+                obj.telefone,
+                obj.getData_admissao(),
+                obj.getSalario_bruto()});
         }
     }
-    
-    
+
+    public void niveis() {
+        ConexoesMySQL con = new ConexoesMySQL();
+        int nivel = con.recuperaNivel();
+        System.out.println(nivel);
+        if (nivel == 1) {
+            ButtonCadastro.setEnabled(false);
+            botaoCadastroNovoUsuario.setEnabled(false);
+        } else if (nivel == 2) {
+            ButtonCadastro.setEnabled(true);
+            botaoCadastroNovoUsuario.setEnabled(true);
+        } else if (nivel == 3) {
+            ButtonCadastro.setEnabled(true);
+            botaoCadastroNovoUsuario.setEnabled(true);
+        }
+    }
+
     /**
      * Creates new form Cadastre
      */
@@ -78,12 +94,33 @@ public class Cadastre extends javax.swing.JFrame {
         Buscar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        botaoCadastroNovoUsuario = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        PRua = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        PBairro = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        PCidade = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        PEstado = new javax.swing.JTextField();
+        PCargoCoordenacao = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        PCargoChefia = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        TCursoAtual = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        TCursoAnterior = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        TProfissao = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        TFaixaSalarial = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela de Cadastro");
         setType(java.awt.Window.Type.UTILITY);
 
-        Selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione uma opção", "Aluno", "Professor" }));
+        Selector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione uma opção", "Pessoa", "Aluno", "Professor", "Egresso" }));
         Selector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelectorActionPerformed(evt);
@@ -126,6 +163,7 @@ public class Cadastre extends javax.swing.JFrame {
         jLabel8.setText("Salário bruto");
 
         ButtonCadastro.setText("Cadastrar");
+        ButtonCadastro.setEnabled(false);
         ButtonCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonCadastroActionPerformed(evt);
@@ -158,6 +196,40 @@ public class Cadastre extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-professor-48.png"))); // NOI18N
 
+        botaoCadastroNovoUsuario.setText("Cadastrar Novo Usuário");
+        botaoCadastroNovoUsuario.setEnabled(false);
+        botaoCadastroNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastroNovoUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Rua");
+
+        jLabel12.setText("Bairro");
+
+        jLabel13.setText("Cidade");
+
+        jLabel14.setText("Estado");
+
+        jLabel15.setText("Cargo Coordenação");
+
+        jLabel16.setText("Cargo Chefia");
+
+        jLabel17.setText("Curso Atual");
+
+        jLabel18.setText("Profissão");
+
+        jLabel19.setText("Curso Anterior");
+
+        TProfissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TProfissaoActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Faixa Salarial");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,92 +237,167 @@ public class Cadastre extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Selector, 0, 176, Short.MAX_VALUE)
-                    .addComponent(TMatricula)
-                    .addComponent(TContato)
-                    .addComponent(TData_Nascimento)
-                    .addComponent(TNome)
-                    .addComponent(TCpf)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(PRua)
+                        .addComponent(Selector, javax.swing.GroupLayout.Alignment.LEADING, 0, 260, Short.MAX_VALUE)
+                        .addComponent(TData_Nascimento, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TCpf, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TNome, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TContato))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel13)
+                        .addComponent(PBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                        .addComponent(PCidade)
+                        .addComponent(PEstado))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel11))
+                .addGap(72, 72, 72)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(TSalario_Bruto)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(PCargoChefia, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(PCargoCoordenacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                        .addComponent(TData_Admissao, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TMatricula, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(TPeriodo, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(TPeriodo))
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(TData_Admissao)
-                    .addComponent(Buscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(ButtonListar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
-                    .addComponent(ButtonCadastro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TSalario_Bruto, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel10))))
-                .addGap(63, 63, 63))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Buscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(ButtonListar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(ButtonAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(ButtonCadastro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoCadastroNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10)))
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel19)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(TFaixaSalarial)
+                                .addComponent(TCursoAnterior, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TCursoAtual, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TProfissao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(23, 23, 23))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Selector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TData_Admissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TSalario_Bruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(41, 41, 41)
+                .addComponent(Selector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TData_Nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(33, 33, 33)
+                        .addComponent(botaoCadastroNovoUsuario)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(Buscar)
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ButtonListar)
                             .addComponent(ButtonAlterar))
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonCadastro)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addComponent(ButtonCadastro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TCursoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TCursoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TFaixaSalarial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TData_Admissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PCargoChefia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PCargoCoordenacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TSalario_Bruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TData_Nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(51, 51, 51))
         );
 
         TMatricula.getAccessibleContext().setAccessibleName("");
@@ -268,12 +415,12 @@ public class Cadastre extends javax.swing.JFrame {
     }//GEN-LAST:event_TData_AdmissaoActionPerformed
 
     private void SelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectorActionPerformed
-        if(Selector.getSelectedIndex()==0) {
+        if (Selector.getSelectedIndex() == 0) {
             jLabel9.setVisible(true);
             jLabel10.setVisible(true);
-            
+
             ButtonAlterar.setEnabled(false);
-            
+
             TNome.setText("");
             TData_Nascimento.setText("");
             TContato.setText("");
@@ -282,48 +429,54 @@ public class Cadastre extends javax.swing.JFrame {
             TMatricula.setText("");
             TPeriodo.setText("");
             TCpf.setText("");
+
+            PRua.setText("");
+            PBairro.setText("");
+            PCidade.setText("");
+            PEstado.setText("");
         }
-        if(Selector.getSelectedIndex()==1) {
-            jLabel5.setVisible(true);
-            TMatricula.setVisible(true);
-            jLabel6.setVisible(true);
-            TPeriodo.setVisible(true);
-         
-            jLabel7.setVisible(false);
-            TData_Admissao.setVisible(false);
-            jLabel8.setVisible(false);
-            TSalario_Bruto.setVisible(false);
-            
-            jLabel9.setVisible(true);
-            jLabel10.setVisible(false);
-            
-            ButtonAlterar.setEnabled(false);
-            
-            TNome.setText("");
-            TData_Nascimento.setText("");
-            TContato.setText("");
-            TData_Admissao.setText("");
-            TSalario_Bruto.setText("");
-            TMatricula.setText("");
-            TPeriodo.setText("");
-            TCpf.setText("");
-        } 
-        if(Selector.getSelectedIndex()==2) {
+        if (Selector.getSelectedIndex() == 1) {
+            jLabel1.setVisible(true);
+            TNome.setVisible(true);
+            jLabel2.setVisible(true);
+            TCpf.setVisible(true);
+            jLabel3.setVisible(true);
+            TData_Nascimento.setVisible(true);
+            jLabel4.setVisible(true);
+            TContato.setVisible(true);
+            jLabel11.setVisible(true);
+            PRua.setVisible(true);
+            jLabel12.setVisible(true);
+            PBairro.setVisible(true);
+            jLabel13.setVisible(true);
+            PCidade.setVisible(true);
+            jLabel14.setVisible(true);
+            PEstado.setVisible(true);
+
             jLabel5.setVisible(false);
             TMatricula.setVisible(false);
             jLabel6.setVisible(false);
             TPeriodo.setVisible(false);
-         
-            jLabel7.setVisible(true);
-            TData_Admissao.setVisible(true);
-            jLabel8.setVisible(true);
-            TSalario_Bruto.setVisible(true);
-            
-            jLabel9.setVisible(false);
-            jLabel10.setVisible(true);
-            
-            ButtonAlterar.setEnabled(false);
-            
+
+            jLabel7.setVisible(false);
+            TData_Admissao.setVisible(false);
+            jLabel8.setVisible(false);
+            TSalario_Bruto.setVisible(false);
+
+            jLabel15.setVisible(false);
+            PCargoChefia.setVisible(false);
+            jLabel16.setVisible(false);
+            PCargoCoordenacao.setVisible(false);
+
+            jLabel18.setVisible(false);
+            TProfissao.setVisible(false);
+            jLabel19.setVisible(false);
+            TCursoAnterior.setVisible(false);
+            jLabel17.setVisible(false);
+            TCursoAtual.setVisible(false);
+            jLabel20.setVisible(false);
+            TFaixaSalarial.setVisible(false);
+
             TNome.setText("");
             TData_Nascimento.setText("");
             TContato.setText("");
@@ -332,83 +485,325 @@ public class Cadastre extends javax.swing.JFrame {
             TMatricula.setText("");
             TPeriodo.setText("");
             TCpf.setText("");
+
+            PRua.setText("");
+            PBairro.setText("");
+            PCidade.setText("");
+            PEstado.setText("");
+        }
+        if (Selector.getSelectedIndex() == 2) {
+            jLabel1.setVisible(true);
+            TNome.setVisible(true);
+            jLabel2.setVisible(true);
+            TCpf.setVisible(true);
+            jLabel3.setVisible(true);
+            TData_Nascimento.setVisible(true);
+            jLabel4.setVisible(true);
+            TContato.setVisible(true);
+            jLabel11.setVisible(true);
+            PRua.setVisible(true);
+            jLabel12.setVisible(true);
+            PBairro.setVisible(true);
+            jLabel13.setVisible(true);
+            PCidade.setVisible(true);
+            jLabel14.setVisible(true);
+            PEstado.setVisible(true);
+
+            jLabel5.setVisible(true);
+            TMatricula.setVisible(true);
+            jLabel6.setVisible(true);
+            TPeriodo.setVisible(true);
+
+            jLabel7.setVisible(false);
+            TData_Admissao.setVisible(false);
+            jLabel8.setVisible(false);
+            TSalario_Bruto.setVisible(false);
+
+            jLabel15.setVisible(false);
+            PCargoChefia.setVisible(false);
+            jLabel16.setVisible(false);
+            PCargoCoordenacao.setVisible(false);
+
+            jLabel9.setVisible(true);
+            jLabel10.setVisible(false);
+
+            ButtonAlterar.setEnabled(false);
+
+            jLabel18.setVisible(false);
+            TProfissao.setVisible(false);
+            jLabel19.setVisible(false);
+            TCursoAnterior.setVisible(false);
+            jLabel17.setVisible(false);
+            TCursoAtual.setVisible(false);
+            jLabel20.setVisible(false);
+            TFaixaSalarial.setVisible(false);
+
+            TNome.setText("");
+            TData_Nascimento.setText("");
+            TContato.setText("");
+            TData_Admissao.setText("");
+            TSalario_Bruto.setText("");
+            TMatricula.setText("");
+            TPeriodo.setText("");
+            TCpf.setText("");
+
+            PRua.setText("");
+            PBairro.setText("");
+            PCidade.setText("");
+            PEstado.setText("");
+        }
+        if (Selector.getSelectedIndex() == 3) {
+            jLabel1.setVisible(true);
+            TNome.setVisible(true);
+            jLabel2.setVisible(true);
+            TCpf.setVisible(true);
+            jLabel3.setVisible(true);
+            TData_Nascimento.setVisible(true);
+            jLabel4.setVisible(true);
+            TContato.setVisible(true);
+            jLabel11.setVisible(true);
+            PRua.setVisible(true);
+            jLabel12.setVisible(true);
+            PBairro.setVisible(true);
+            jLabel13.setVisible(true);
+            PCidade.setVisible(true);
+            jLabel14.setVisible(true);
+            PEstado.setVisible(true);
+
+            jLabel5.setVisible(false);
+            TMatricula.setVisible(false);
+            jLabel6.setVisible(false);
+            TPeriodo.setVisible(false);
+
+            jLabel7.setVisible(true);
+            TData_Admissao.setVisible(true);
+            jLabel8.setVisible(true);
+            TSalario_Bruto.setVisible(true);
+            jLabel15.setVisible(true);
+            PCargoChefia.setVisible(true);
+            jLabel16.setVisible(true);
+            PCargoCoordenacao.setVisible(true);
+
+            jLabel9.setVisible(false);
+            jLabel10.setVisible(true);
+
+            ButtonAlterar.setEnabled(false);
+
+            jLabel18.setVisible(false);
+            TProfissao.setVisible(false);
+            jLabel19.setVisible(false);
+            TCursoAnterior.setVisible(false);
+            jLabel17.setVisible(false);
+            TCursoAtual.setVisible(false);
+            jLabel20.setVisible(false);
+            TFaixaSalarial.setVisible(false);
+
+            TNome.setText("");
+            TData_Nascimento.setText("");
+            TContato.setText("");
+            TData_Admissao.setText("");
+            TSalario_Bruto.setText("");
+            TMatricula.setText("");
+            TPeriodo.setText("");
+            TCpf.setText("");
+
+            PRua.setText("");
+            PBairro.setText("");
+            PCidade.setText("");
+            PEstado.setText("");
+        }
+        if (Selector.getSelectedIndex() == 4) {
+            jLabel1.setVisible(false);
+            TNome.setVisible(false);
+            jLabel2.setVisible(false);
+            TCpf.setVisible(false);
+            jLabel3.setVisible(false);
+            TData_Nascimento.setVisible(false);
+            jLabel4.setVisible(false);
+            TContato.setVisible(false);
+            jLabel11.setVisible(false);
+            PRua.setVisible(false);
+            jLabel12.setVisible(false);
+            PBairro.setVisible(false);
+            jLabel13.setVisible(false);
+            PCidade.setVisible(false);
+            jLabel14.setVisible(false);
+            PEstado.setVisible(false);
+
+            jLabel5.setVisible(true);
+            TMatricula.setVisible(true);
+            jLabel6.setVisible(false);
+            TPeriodo.setVisible(false);
+
+            jLabel7.setVisible(false);
+            TData_Admissao.setVisible(false);
+            jLabel8.setVisible(false);
+            TSalario_Bruto.setVisible(false);
+
+            jLabel15.setVisible(false);
+            PCargoChefia.setVisible(false);
+            jLabel16.setVisible(false);
+            PCargoCoordenacao.setVisible(false);
+
+            jLabel18.setVisible(true);
+            TProfissao.setVisible(true);
+            jLabel19.setVisible(true);
+            TCursoAnterior.setVisible(true);
+            jLabel17.setVisible(true);
+            TCursoAtual.setVisible(true);
+            jLabel20.setVisible(true);
+            TFaixaSalarial.setVisible(true);
+
+            jLabel9.setVisible(true);
+            jLabel10.setVisible(false);
+
+            ButtonAlterar.setEnabled(false);
+
+            TNome.setText("");
+            TData_Nascimento.setText("");
+            TContato.setText("");
+            TData_Admissao.setText("");
+            TSalario_Bruto.setText("");
+            TMatricula.setText("");
+            TPeriodo.setText("");
+            TCpf.setText("");
+
+            PRua.setText("");
+            PBairro.setText("");
+            PCidade.setText("");
+            PEstado.setText("");
         }
     }//GEN-LAST:event_SelectorActionPerformed
 
     private void ButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCadastroActionPerformed
-        if(Selector.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(null,"Nenhuma opção foi selecionada!","ERRO",JOptionPane.ERROR_MESSAGE);
+        if (Selector.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        if(Selector.getSelectedIndex()==1) {
-            if(TNome.getText().isEmpty() || TCpf.getText().isEmpty() || TContato.getText().isEmpty() || TData_Nascimento.getText().isEmpty() || TMatricula.getText().isEmpty() || TPeriodo.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Dados de cadastro incompletos!","ERRO",JOptionPane.ERROR_MESSAGE);
+        if (Selector.getSelectedIndex() == 1) {
+            if (TNome.getText().isEmpty() || TCpf.getText().isEmpty() || TContato.getText().isEmpty() || TData_Nascimento.getText().isEmpty() || PRua.getText().isEmpty() || PBairro.getText().isEmpty() || PCidade.getText().isEmpty() || PEstado.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados de cadastro incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                long CPF = Long.parseLong(TCpf.getText());
+
+                ConexoesMySQL conec = new ConexoesMySQL();
+                conec.insereDadosPessoaNoMySQL(TNome.getText(), CPF, TContato.getText(), TData_Nascimento.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            }
+        }
+        if (Selector.getSelectedIndex() == 2) {
+            if (TCpf.getText().isEmpty() || TMatricula.getText().isEmpty() || TPeriodo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados de cadastro incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 int Matricula = Integer.parseInt(TMatricula.getText());
                 int Periodo = Integer.parseInt(TPeriodo.getText());
                 long CPF = Long.parseLong(TCpf.getText());
 
                 ConexoesMySQL conec = new ConexoesMySQL();
-                conec.insereDadosNoMySQL(TNome.getText(), CPF, TContato.getText(), TData_Nascimento.getText(), Matricula, Periodo);
+                conec.insereDadosAlunoNoMySQL(TNome.getText(), CPF, Matricula, Periodo, TContato.getText(), TData_Nascimento.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
             }
         }
-        if(Selector.getSelectedIndex()==2) {
-            if(TNome.getText().isEmpty() || TCpf.getText().isEmpty() || TContato.getText().isEmpty() || TData_Nascimento.getText().isEmpty() || TData_Admissao.getText().isEmpty() || TSalario_Bruto.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null,"Dados de cadastro incompletos!","ERRO",JOptionPane.ERROR_MESSAGE);
+        if (Selector.getSelectedIndex() == 3) {
+            if (TCpf.getText().isEmpty() || TData_Admissao.getText().isEmpty() || PCargoChefia.getText().isEmpty() || PCargoCoordenacao.getText().isEmpty() || TSalario_Bruto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados de cadastro incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 double Salario_bruto = Double.parseDouble(TSalario_Bruto.getText());
                 long CPF = Long.parseLong(TCpf.getText());
-            
+
                 ConexoesMySQL conec = new ConexoesMySQL();
-                conec.insereDadosProfessorNoMySQL(TNome.getText(), CPF, TContato.getText(), TData_Nascimento.getText(), TData_Admissao.getText(), Salario_bruto);
+                conec.insereDadosProfessorNoMySQL(TNome.getText(), CPF, TData_Admissao.getText(), PCargoChefia.getText(), PCargoCoordenacao.getText(), Salario_bruto, TContato.getText(), TData_Nascimento.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            }
+        }
+        if (Selector.getSelectedIndex() == 4) {
+            if (TMatricula.getText().isEmpty() || TProfissao.getText().isEmpty() || TCursoAnterior.getText().isEmpty() || TCursoAtual.getText().isEmpty() || TFaixaSalarial.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados de cadastro incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ConexoesMySQL conec = new ConexoesMySQL();
+                conec.insereDadosEgressoNoMySQL(TMatricula.getText(), TProfissao.getText(), TCursoAnterior.getText(), TCursoAtual.getText(), TFaixaSalarial.getText());
             }
         }
     }//GEN-LAST:event_ButtonCadastroActionPerformed
 
     private void ButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAlterarActionPerformed
-        if(Selector.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(null,"Nenhuma opção foi selecionada!","ERRO",JOptionPane.ERROR_MESSAGE);
+        if (Selector.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        if(Selector.getSelectedIndex()==1) {
+        if (Selector.getSelectedIndex() == 1) {
             ConexoesMySQL conec = new ConexoesMySQL();
-            
-            conec.atualizaDadosNoMySQL(TCpf.getText(), TMatricula.getText(), TPeriodo.getText());
+            conec.atualizaDadosPessoaNoMySQL(TCpf.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
         }
-        if(Selector.getSelectedIndex()==2) {
+        if (Selector.getSelectedIndex() == 2) {
+            ConexoesMySQL conec = new ConexoesMySQL();
+            conec.atualizaDadosAlunoNoMySQL(TCpf.getText(), TMatricula.getText(), TPeriodo.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+        }
+        if (Selector.getSelectedIndex() == 3) {
             double Salario_bruto = Double.parseDouble(TSalario_Bruto.getText());
             ConexoesMySQL conec = new ConexoesMySQL();
-            conec.atualizaDadosProfessorNoMySQL(TCpf.getText(), TData_Admissao.getText(), Salario_bruto);
+            conec.atualizaDadosProfessorNoMySQL(TCpf.getText(), TData_Admissao.getText(), Salario_bruto, PCargoChefia.getText(), PCargoCoordenacao.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+        }
+        if (Selector.getSelectedIndex() == 4) {
+            ConexoesMySQL conec = new ConexoesMySQL();
+            conec.atualizaDadosEgressoNoMySQL(TMatricula.getText(), TProfissao.getText(), TCursoAnterior.getText(), TCursoAtual.getText(), TFaixaSalarial.getText());
         }
     }//GEN-LAST:event_ButtonAlterarActionPerformed
 
     private void ButtonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListarActionPerformed
-        if(Selector.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(null,"Nenhuma opção foi selecionada!","ERRO",JOptionPane.ERROR_MESSAGE);
+        if (Selector.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        if(Selector.getSelectedIndex()==1) {
+        if (Selector.getSelectedIndex() == 1) {
+            TabelaPessoas newTabela = new TabelaPessoas();
+            newTabela.setVisible(true);
+        }
+        if (Selector.getSelectedIndex() == 2) {
             TabelaAlunos newTabela = new TabelaAlunos();
             newTabela.setVisible(true);
         }
-        if(Selector.getSelectedIndex()==2) {
+        if (Selector.getSelectedIndex() == 3) {
             TabelaProfessores newTabela = new TabelaProfessores();
+            newTabela.setVisible(true);
+        }
+        if (Selector.getSelectedIndex() == 4) {
+            TabelaEgressos newTabela = new TabelaEgressos();
             newTabela.setVisible(true);
         }
     }//GEN-LAST:event_ButtonListarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
-        if(Selector.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(null,"Nenhuma opção foi selecionada!","ERRO",JOptionPane.ERROR_MESSAGE);
+        if (Selector.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        if(Selector.getSelectedIndex()==1) {
+        if (Selector.getSelectedIndex() == 1) {
+            ConexoesMySQL conec = new ConexoesMySQL();
+            Pessoa pessoa = null;
+
+            if (TCpf.getText() != "") {
+                pessoa = conec.buscaPessoa(TCpf.getText());
+                ButtonAlterar.setEnabled(true);
+            }
+
+            if (pessoa == null) {
+                JOptionPane.showMessageDialog(null, "Pessoa não encontrada!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                TNome.setText(pessoa.getNome());
+                TData_Nascimento.setText(pessoa.getData_nascimento());
+                TContato.setText(pessoa.getTelefone());
+                PRua.setText(pessoa.getRua());
+                PBairro.setText(pessoa.getBairro());
+                PCidade.setText(pessoa.getCidade());
+                PEstado.setText(pessoa.getEstado());
+            }
+        }
+        if (Selector.getSelectedIndex() == 2) {
             ConexoesMySQL conec = new ConexoesMySQL();
             Aluno aluno = null;
-            
-            if(TCpf.getText() != "") {
+
+            if (TCpf.getText() != "") {
                 aluno = conec.buscaAluno(TCpf.getText());
                 ButtonAlterar.setEnabled(true);
             }
-            
-            if(aluno == null) {
-                JOptionPane.showMessageDialog(null,"Aluno não encontrado!","ERRO",JOptionPane.ERROR_MESSAGE);
+
+            if (aluno == null) {
+                JOptionPane.showMessageDialog(null, "Aluno não encontrado!", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 String Matricula = String.valueOf(aluno.getMatricula());
                 String Periodo = String.valueOf(aluno.getPeriodo());
@@ -418,18 +813,23 @@ public class Cadastre extends javax.swing.JFrame {
                 TContato.setText(aluno.getTelefone());
                 TMatricula.setText(Matricula);
                 TPeriodo.setText(Periodo);
+
+                PRua.setText(aluno.getRua());
+                PBairro.setText(aluno.getBairro());
+                PCidade.setText(aluno.getCidade());
+                PEstado.setText(aluno.getEstado());
             }
         }
-         if(Selector.getSelectedIndex()==2) {
+        if (Selector.getSelectedIndex() == 3) {
             ConexoesMySQL conec = new ConexoesMySQL();
             Professor professor = null;
-            if(TCpf.getText() != "") {
+            if (TCpf.getText() != "") {
                 professor = conec.buscaProfessor(TCpf.getText());
                 ButtonAlterar.setEnabled(true);
             }
-            
-            if(professor == null) {
-                JOptionPane.showMessageDialog(null,"Professor não encontrado!","ERRO",JOptionPane.ERROR_MESSAGE);
+
+            if (professor == null) {
+                JOptionPane.showMessageDialog(null, "Professor não encontrado!", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 String Data_admissao = String.valueOf(professor.getData_admissao());
                 String Salario_bruto = String.valueOf(professor.getSalario_bruto());
@@ -439,6 +839,33 @@ public class Cadastre extends javax.swing.JFrame {
                 TContato.setText(professor.getTelefone());
                 TData_Admissao.setText(Data_admissao);
                 TSalario_Bruto.setText(Salario_bruto);
+
+                PRua.setText(professor.getRua());
+                PBairro.setText(professor.getBairro());
+                PCidade.setText(professor.getCidade());
+                PEstado.setText(professor.getEstado());
+            }
+        }
+        if (Selector.getSelectedIndex() == 4) {
+            ConexoesMySQL conec = new ConexoesMySQL();
+            Egresso egresso = null;
+
+            if (TMatricula.getText() != "") {
+                egresso = conec.buscaEgresso(TMatricula.getText());
+                ButtonAlterar.setEnabled(true);
+            }
+
+            if (egresso == null) {
+                JOptionPane.showMessageDialog(null, "Egresso não encontrado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String Matricula = String.valueOf(egresso.getMatricula());
+
+                TMatricula.setText(Matricula);
+                
+                TProfissao.setText(egresso.getProfissao_atual());
+                TCursoAnterior.setText(egresso.getCurso_anterior());
+                TCursoAtual.setText(egresso.getCurso_atual());
+                TFaixaSalarial.setText(egresso.getFaixa_salarial());
             }
         }
     }//GEN-LAST:event_BuscarActionPerformed
@@ -446,6 +873,15 @@ public class Cadastre extends javax.swing.JFrame {
     private void TCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TCpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TCpfActionPerformed
+
+    private void botaoCadastroNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastroNovoUsuarioActionPerformed
+        Usuarios newUsuario = new Usuarios();
+        newUsuario.setVisible(true);
+    }//GEN-LAST:event_botaoCadastroNovoUsuarioActionPerformed
+
+    private void TProfissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TProfissaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TProfissaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -487,18 +923,39 @@ public class Cadastre extends javax.swing.JFrame {
     private javax.swing.JButton ButtonAlterar;
     private javax.swing.JButton ButtonCadastro;
     private javax.swing.JButton ButtonListar;
+    private javax.swing.JTextField PBairro;
+    private javax.swing.JTextField PCargoChefia;
+    private javax.swing.JTextField PCargoCoordenacao;
+    private javax.swing.JTextField PCidade;
+    private javax.swing.JTextField PEstado;
+    private javax.swing.JTextField PRua;
     protected static javax.swing.JComboBox<String> Selector;
     private javax.swing.JTextField TContato;
     private javax.swing.JTextField TCpf;
+    private javax.swing.JTextField TCursoAnterior;
+    private javax.swing.JTextField TCursoAtual;
     private javax.swing.JTextField TData_Admissao;
     private javax.swing.JTextField TData_Nascimento;
+    private javax.swing.JTextField TFaixaSalarial;
     private javax.swing.JTextField TMatricula;
     private javax.swing.JTextField TNome;
     private javax.swing.JTextField TPeriodo;
+    private javax.swing.JTextField TProfissao;
     private javax.swing.JTextField TSalario_Bruto;
+    private javax.swing.JButton botaoCadastroNovoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

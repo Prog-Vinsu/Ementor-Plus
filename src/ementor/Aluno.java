@@ -9,7 +9,7 @@ package ementor;
  * @author Vincenzo
  */
 public class Aluno extends Pessoa {
-    private int matricula, periodo;
+    protected int matricula, periodo;
     
     public Aluno (){
         super();
@@ -17,8 +17,8 @@ public class Aluno extends Pessoa {
         this.periodo = 0;
     }
 
-    public Aluno(int matricula, int periodo, String nome, String data_nascimento, long CPF, String telefone) {
-        super(nome, data_nascimento, CPF, telefone);
+    public Aluno(int matricula, int periodo, String nome, String data_nascimento, long CPF, String telefone, String rua, String bairro, String cidade, String estado) {
+        super(nome, data_nascimento, telefone, rua, bairro, cidade, estado, CPF);
         this.matricula = matricula;
         this.periodo = periodo;
     }
