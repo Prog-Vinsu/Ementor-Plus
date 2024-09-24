@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Vincenzo
  */
-public class TabelaProfessores extends javax.swing.JFrame {
+public class TabelaTurmas extends javax.swing.JFrame {
 
     /**
-     * Creates new form TabelaProfessores
+     * Creates new form TabelaTurmas
      */
-    public TabelaProfessores() {
+    public TabelaTurmas() {
         initComponents();
     }
 
@@ -30,48 +30,43 @@ public class TabelaProfessores extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela_Professores = new javax.swing.JTable();
+        Tabela_Turmas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Dados dos Professores");
-        setType(java.awt.Window.Type.UTILITY);
+        setTitle("Tabela de Turmas");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
-        Tabela_Professores.setModel(new javax.swing.table.DefaultTableModel(
+        Tabela_Turmas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome do Professor", "CPF", "Data de Nascimento", "Telefone", "Data de Admissão", "Salário Bruto", "Coordenação", "Chefia"
+                "Código Turma", "Disciplina"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(Tabela_Professores);
+        jScrollPane1.setViewportView(Tabela_Turmas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,19 +74,16 @@ public class TabelaProfessores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ArrayList<Professor> ListaProfessores = new ArrayList(); 
-        
+        ArrayList<Turma> ListaTurmas = new ArrayList();
+
         ConexoesMySQL conec = new ConexoesMySQL();
-        ListaProfessores = conec.recuperaDadosProfessorDoMySQL("Nome");
-        
-        DefaultTableModel Tabela = (DefaultTableModel) TabelaProfessores.Tabela_Professores.getModel();
-        for(Professor obj: ListaProfessores) {
-            Tabela.addRow(new Object[] {obj.nome, obj.CPF, 
-                                        obj.data_nascimento,
-                                        obj.telefone,
-                                        obj.getData_admissao(),
-                                        obj.getSalario_bruto(),
-                                        obj.CargoCoordenador, obj.CargoChefia});
+        ListaTurmas = conec.recuperaDadosTurmasDoMySQL();
+
+        DefaultTableModel Tabela = (DefaultTableModel) TabelaTurmas.Tabela_Turmas.getModel();
+        for (Turma obj : ListaTurmas) {
+            Tabela.addRow(new Object[]{
+                obj.codigo,
+                obj.nomeTurma});
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -112,26 +104,26 @@ public class TabelaProfessores extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TabelaProfessores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TabelaTurmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TabelaProfessores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TabelaTurmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TabelaProfessores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TabelaTurmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TabelaProfessores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TabelaTurmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TabelaProfessores().setVisible(true);
+                new TabelaTurmas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTable Tabela_Professores;
+    private static javax.swing.JTable Tabela_Turmas;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

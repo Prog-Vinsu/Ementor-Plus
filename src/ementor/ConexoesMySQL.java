@@ -159,6 +159,24 @@ public class ConexoesMySQL {
         desconectaMySQL(conexao);
     }
     
+    public void insereDadosTurmaNoMySQL(String codigo, String nomeTurma) {
+        Connection conexao = realizaConexaoMySQL();
+        String sql_turma = "INSERT INTO Turma (Codigo,NomeTurma) VALUES (?,?)";
+
+        try {
+            PreparedStatement Atuador_turma = conexao.prepareStatement(sql_turma);
+            
+            Atuador_turma.setString(1, codigo);
+            Atuador_turma.setString(2, nomeTurma);
+
+            Atuador_turma.execute();
+            JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+        desconectaMySQL(conexao);
+    }
+    
     public void insereNotasAlunoNoMySQL(String matricula, String codigo, double n1,  double n2,  double n3,  double n4,  double n5,  double n6,  double n7,  double n8,  double n9,  double n10) {
         Connection conexao = realizaConexaoMySQL();
         String sql_notas = "INSERT INTO Notas (MatriculaAluno, CodigoTurma, Nota1, Nota2, Nota3, Nota4, Nota5, Nota6, Nota7, Nota8, Nota9, Nota10) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -272,8 +290,10 @@ public class ConexoesMySQL {
             "ementor.pessoa.Bairro = ?, " +
             "ementor.pessoa.Cidade = ?, " +
             "ementor.pessoa.Estado = ?, " +
-            "ementor.professor.Salario_bruto = ?, " +
-            "ementor.professor.Data_admissao = ? " +
+            "ementor.professor.SalarioBruto = ?, " +
+            "ementor.professor.DataAdmissao = ? " +
+            "ementor.professor.CargoChefia = ? " + 
+            "ementor.professor.CargoCoordenacao = ? " +
             "WHERE ementor.pessoa.CPF = ?;";
 
         try {
@@ -450,19 +470,21 @@ public class ConexoesMySQL {
         try {
             String sql_selecao_professor = "SELECT *FROM ementor.pessoa, ementor.professor WHERE pessoa.CPF=professor.CPFProfessor ORDER BY " + tipoOrdenacao + ";";
             PreparedStatement atuador_selecao_professor = conexao.prepareStatement(sql_selecao_professor);
-            ResultSet ResultadoSelecao = atuador_selecao_professor.executeQuery(); //É aqui que fica o resultado da selação do MySQL
-            /*Secao para percorrer todas as linhas resultantes da seleção- Logo, deve-se usar um laço de repetição  */
-            while (ResultadoSelecao.next()) {//Laço de repetição para percorrer todo o conjuto de resultados "ResultSet" trazidos pela Query
-                Professor ObjetoProfessor = new Professor();//Cria objeto professor
-                /*Seção para inserir em cada atributo do objetoAluno os valores dos campos do MySQL */
+            ResultSet ResultadoSelecao = atuador_selecao_professor.executeQuery();
+            
+            while (ResultadoSelecao.next()) {
+                Professor ObjetoProfessor = new Professor();
+                
                 ObjetoProfessor.CPF = ResultadoSelecao.getLong("CPF");
                 ObjetoProfessor.nome = ResultadoSelecao.getString("Nome");
                 ObjetoProfessor.data_nascimento = ResultadoSelecao.getString("DataNascimento");
                 ObjetoProfessor.telefone = ResultadoSelecao.getString("Telefone");
-                ObjetoProfessor.setData_admissao(ResultadoSelecao.getString("Data_Admissao"));
-                ObjetoProfessor.setSalario_bruto(ResultadoSelecao.getDouble("Salario_Bruto"));
-
-                Academico.add(ObjetoProfessor);//Adiciona à Lista o Objeto Atual        
+                ObjetoProfessor.setData_admissao(ResultadoSelecao.getString("DataAdmissao"));
+                ObjetoProfessor.setSalario_bruto(ResultadoSelecao.getDouble("SalarioBruto"));
+                ObjetoProfessor.CargoChefia = ResultadoSelecao.getBoolean("CargoChefia");
+                ObjetoProfessor.CargoCoordenador = ResultadoSelecao.getBoolean("CargoCoordenacao");
+                
+                Academico.add(ObjetoProfessor);
 
             }
             ResultadoSelecao.close();
@@ -470,9 +492,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
         }
-        desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
+        desconectaMySQL(conexao); 
         return Academico;
     }
     
@@ -506,6 +527,34 @@ public class ConexoesMySQL {
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
         return egresso;
+    }
+     
+     public ArrayList<Turma> recuperaDadosTurmasDoMySQL() {
+        Connection conexao = realizaConexaoMySQL();
+        ArrayList<Turma> turma = new ArrayList();
+        
+        try {
+            String sql_selecao_turma = "SELECT *FROM ementor.Turma;";
+            PreparedStatement atuador_selecao_turma = conexao.prepareStatement(sql_selecao_turma);
+            ResultSet ResultadoSelecao = atuador_selecao_turma.executeQuery(); 
+            
+            while (ResultadoSelecao.next()) {
+                Turma ObjetoEgresso = new Turma();
+                
+                ObjetoEgresso.codigo = ResultadoSelecao.getString("Codigo");
+                ObjetoEgresso.nomeTurma = ResultadoSelecao.getString("NomeTurma");
+
+                turma.add(ObjetoEgresso);     
+
+            }
+            ResultadoSelecao.close();
+            atuador_selecao_turma.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+        desconectaMySQL(conexao); 
+        return turma;
     }
     
 
@@ -632,8 +681,10 @@ public class ConexoesMySQL {
                 ObjetoProfessor.nome = ResultadoSelecao.getString("Nome");
                 ObjetoProfessor.data_nascimento = ResultadoSelecao.getString("DataNascimento");
                 ObjetoProfessor.telefone = ResultadoSelecao.getString("Telefone");
-                ObjetoProfessor.setData_admissao(ResultadoSelecao.getString("Data_Admissao"));
-                ObjetoProfessor.setSalario_bruto(ResultadoSelecao.getDouble("Salario_Bruto"));
+                ObjetoProfessor.setData_admissao(ResultadoSelecao.getString("DataAdmissao"));
+                ObjetoProfessor.setSalario_bruto(ResultadoSelecao.getDouble("SalarioBruto"));
+                ObjetoProfessor.CargoChefia = ResultadoSelecao.getBoolean("CargoChefia");
+                ObjetoProfessor.CargoCoordenador = ResultadoSelecao.getBoolean("CargoCoordenacao");
                 
                 ObjetoProfessor.rua = ResultadoSelecao.getString("Rua");
                 ObjetoProfessor.bairro = ResultadoSelecao.getString("Bairro");

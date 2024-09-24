@@ -20,6 +20,18 @@ public class TabelaAlunos extends javax.swing.JFrame {
     public TabelaAlunos() {
         initComponents();
     }
+    
+    public void niveis() {
+        ConexoesMySQL con = new ConexoesMySQL();
+        int nivel = con.recuperaNivel();
+        if (nivel == 1) {
+            botaoCadastrarNotas.setEnabled(false);
+        } else if (nivel == 2) {
+            botaoCadastrarNotas.setEnabled(true);
+        } else if (nivel == 3) {
+            botaoCadastrarNotas.setEnabled(true);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,6 +48,7 @@ public class TabelaAlunos extends javax.swing.JFrame {
         MatriculaAluno = new javax.swing.JTextField();
         botaoCadastrarNotas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        botaoConsultarTurmas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dados dos Alunos");
@@ -81,6 +94,13 @@ public class TabelaAlunos extends javax.swing.JFrame {
 
         jLabel1.setText("CPF");
 
+        botaoConsultarTurmas.setText("Consultar Turmas");
+        botaoConsultarTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConsultarTurmasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,7 +112,9 @@ public class TabelaAlunos extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(MatriculaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ExibirNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCadastrarNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(botaoConsultarTurmas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoCadastrarNotas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,6 +129,8 @@ public class TabelaAlunos extends javax.swing.JFrame {
                 .addComponent(ExibirNotas)
                 .addGap(18, 18, 18)
                 .addComponent(botaoCadastrarNotas)
+                .addGap(26, 26, 26)
+                .addComponent(botaoConsultarTurmas)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -115,6 +139,7 @@ public class TabelaAlunos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        niveis();
         ArrayList<Aluno> ListaAlunos = new ArrayList();
 
         ConexoesMySQL conec = new ConexoesMySQL();
@@ -158,6 +183,11 @@ public class TabelaAlunos extends javax.swing.JFrame {
         newNotas.setVisible(true);
     }//GEN-LAST:event_botaoCadastrarNotasActionPerformed
 
+    private void botaoConsultarTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConsultarTurmasActionPerformed
+        TabelaTurmas turma = new TabelaTurmas();
+        turma.setVisible(true);
+    }//GEN-LAST:event_botaoConsultarTurmasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -198,6 +228,7 @@ public class TabelaAlunos extends javax.swing.JFrame {
     private javax.swing.JTextField MatriculaAluno;
     public static javax.swing.JTable Tabela_Alunos;
     private javax.swing.JButton botaoCadastrarNotas;
+    private javax.swing.JButton botaoConsultarTurmas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
