@@ -44,11 +44,13 @@ public class TabelaAlunos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela_Alunos = new javax.swing.JTable();
-        ExibirNotas = new javax.swing.JButton();
-        MatriculaAluno = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         botaoCadastrarNotas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         botaoConsultarTurmas = new javax.swing.JButton();
+        ExibirNotas = new javax.swing.JButton();
+        MatriculaAluno = new javax.swing.JTextField();
+        botaoVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dados dos Alunos");
@@ -77,6 +79,31 @@ public class TabelaAlunos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tabela_Alunos);
 
+        jPanel1.setBackground(new java.awt.Color(91, 208, 223));
+
+        botaoCadastrarNotas.setBackground(new java.awt.Color(244, 240, 231));
+        botaoCadastrarNotas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        botaoCadastrarNotas.setText("Cadastrar notas");
+        botaoCadastrarNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCadastrarNotasActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setText("CPF");
+
+        botaoConsultarTurmas.setBackground(new java.awt.Color(244, 240, 231));
+        botaoConsultarTurmas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        botaoConsultarTurmas.setText("Consultar Turmas");
+        botaoConsultarTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoConsultarTurmasActionPerformed(evt);
+            }
+        });
+
+        ExibirNotas.setBackground(new java.awt.Color(244, 240, 231));
+        ExibirNotas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         ExibirNotas.setText("Consultar notas");
         ExibirNotas.setToolTipText("");
         ExibirNotas.addActionListener(new java.awt.event.ActionListener() {
@@ -85,53 +112,63 @@ public class TabelaAlunos extends javax.swing.JFrame {
             }
         });
 
-        botaoCadastrarNotas.setText("Cadastrar notas");
-        botaoCadastrarNotas.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setBackground(new java.awt.Color(240, 182, 182));
+        botaoVoltar.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-esquerda-25.png"))); // NOI18N
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setActionCommand("   Voltar");
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarNotasActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("CPF");
-
-        botaoConsultarTurmas.setText("Consultar Turmas");
-        botaoConsultarTurmas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoConsultarTurmasActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MatriculaAluno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoConsultarTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoCadastrarNotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ExibirNotas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MatriculaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ExibirNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botaoCadastrarNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(botaoConsultarTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(MatriculaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ExibirNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(botaoConsultarTurmas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoCadastrarNotas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MatriculaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ExibirNotas)
-                .addGap(18, 18, 18)
-                .addComponent(botaoCadastrarNotas)
-                .addGap(26, 26, 26)
-                .addComponent(botaoConsultarTurmas)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -188,6 +225,10 @@ public class TabelaAlunos extends javax.swing.JFrame {
         turma.setVisible(true);
     }//GEN-LAST:event_botaoConsultarTurmasActionPerformed
 
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_botaoVoltarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -229,7 +270,9 @@ public class TabelaAlunos extends javax.swing.JFrame {
     public static javax.swing.JTable Tabela_Alunos;
     private javax.swing.JButton botaoCadastrarNotas;
     private javax.swing.JButton botaoConsultarTurmas;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

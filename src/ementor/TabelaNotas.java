@@ -49,6 +49,8 @@ public class TabelaNotas extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabela_Notas = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        botaoVoltar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tabela de Notas Alunos");
@@ -76,17 +78,49 @@ public class TabelaNotas extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(Tabela_Notas);
 
+        jPanel4.setBackground(new java.awt.Color(91, 208, 223));
+
+        botaoVoltar2.setBackground(new java.awt.Color(240, 182, 182));
+        botaoVoltar2.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        botaoVoltar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-esquerda-25.png"))); // NOI18N
+        botaoVoltar2.setText("Voltar");
+        botaoVoltar2.setActionCommand("   Voltar");
+        botaoVoltar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(botaoVoltar2, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(412, Short.MAX_VALUE)
+                .addComponent(botaoVoltar2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1451, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
 
         pack();
@@ -97,6 +131,10 @@ public class TabelaNotas extends javax.swing.JFrame {
 
       
     }//GEN-LAST:event_formWindowOpened
+
+    private void botaoVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar2ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_botaoVoltar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +173,12 @@ public class TabelaNotas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable Tabela_Notas;
+    private javax.swing.JButton botaoVoltar;
+    private javax.swing.JButton botaoVoltar1;
+    private javax.swing.JButton botaoVoltar2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

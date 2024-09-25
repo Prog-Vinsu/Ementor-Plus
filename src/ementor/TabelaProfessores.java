@@ -31,6 +31,8 @@ public class TabelaProfessores extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela_Professores = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        botaoVoltar3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dados dos Professores");
@@ -59,19 +61,49 @@ public class TabelaProfessores extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tabela_Professores);
 
+        jPanel5.setBackground(new java.awt.Color(91, 208, 223));
+
+        botaoVoltar3.setBackground(new java.awt.Color(240, 182, 182));
+        botaoVoltar3.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        botaoVoltar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-esquerda-25.png"))); // NOI18N
+        botaoVoltar3.setText("Voltar");
+        botaoVoltar3.setActionCommand("   Voltar");
+        botaoVoltar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltar3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(botaoVoltar3, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoVoltar3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
 
         pack();
@@ -94,6 +126,10 @@ public class TabelaProfessores extends javax.swing.JFrame {
                                         obj.CargoCoordenador, obj.CargoChefia});
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void botaoVoltar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltar3ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_botaoVoltar3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,6 +168,10 @@ public class TabelaProfessores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable Tabela_Professores;
+    private javax.swing.JButton botaoVoltar2;
+    private javax.swing.JButton botaoVoltar3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

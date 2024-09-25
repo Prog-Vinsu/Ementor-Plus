@@ -67,7 +67,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-                          <Component id="ButtonListar1" min="-2" pref="142" max="-2" attributes="0"/>
+                          <Component id="botaoVoltar" min="-2" pref="142" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -90,7 +90,7 @@
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="ButtonCadastro" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                  <Component id="ButtonListar1" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="botaoVoltar" min="-2" pref="39" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -612,7 +612,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="ButtonListar1">
+        <Component class="javax.swing.JButton" name="botaoVoltar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b6" green="b6" red="f0" type="rgb"/>
@@ -627,7 +627,7 @@
             <Property name="actionCommand" type="java.lang.String" value="   Voltar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonListar1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoVoltarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonListar2">

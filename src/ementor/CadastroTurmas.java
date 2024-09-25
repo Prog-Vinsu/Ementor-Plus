@@ -33,11 +33,12 @@ public class CadastroTurmas extends javax.swing.JFrame {
         TNomeTurma = new javax.swing.JTextField();
         botaoCadastrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        botaoVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Turma");
 
-        jPanel2.setBackground(new java.awt.Color(50, 178, 195));
+        jPanel2.setBackground(new java.awt.Color(91, 208, 223));
         jPanel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         TCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -65,6 +66,17 @@ public class CadastroTurmas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Usuários\\Vincenzo\\Downloads\\icons8-task-50.png")); // NOI18N
 
+        botaoVoltar.setBackground(new java.awt.Color(240, 182, 182));
+        botaoVoltar.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-esquerda-25.png"))); // NOI18N
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setActionCommand("   Voltar");
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -81,13 +93,16 @@ public class CadastroTurmas extends javax.swing.JFrame {
                                 .addComponent(jLabel2))
                             .addGap(54, 54, 54))
                         .addComponent(TNomeTurma, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(Código)
@@ -99,7 +114,9 @@ public class CadastroTurmas extends javax.swing.JFrame {
                 .addComponent(TNomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(30, 30, 30)
+                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,6 +142,10 @@ public class CadastroTurmas extends javax.swing.JFrame {
         ConexoesMySQL conec = new ConexoesMySQL();
         conec.insereDadosTurmaNoMySQL(TCodigo.getText(), TNomeTurma.getText());
     }//GEN-LAST:event_botaoCadastrarActionPerformed
+
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+         setVisible(false);
+    }//GEN-LAST:event_botaoVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,6 +187,7 @@ public class CadastroTurmas extends javax.swing.JFrame {
     private javax.swing.JTextField TCodigo;
     private javax.swing.JTextField TNomeTurma;
     private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;

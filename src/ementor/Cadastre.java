@@ -122,7 +122,7 @@ public class Cadastre extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         TFaixaSalarial = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        ButtonListar1 = new javax.swing.JButton();
+        botaoVoltar = new javax.swing.JButton();
         ButtonListar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -425,14 +425,14 @@ public class Cadastre extends javax.swing.JFrame {
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/logo2_pronta.png"))); // NOI18N
 
-        ButtonListar1.setBackground(new java.awt.Color(240, 182, 182));
-        ButtonListar1.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        ButtonListar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-esquerda-25.png"))); // NOI18N
-        ButtonListar1.setText("Voltar");
-        ButtonListar1.setActionCommand("   Voltar");
-        ButtonListar1.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setBackground(new java.awt.Color(240, 182, 182));
+        botaoVoltar.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-esquerda-25.png"))); // NOI18N
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setActionCommand("   Voltar");
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonListar1ActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
 
@@ -466,7 +466,7 @@ public class Cadastre extends javax.swing.JFrame {
                         .addGap(71, 71, 71))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(106, 106, 106)
-                        .addComponent(ButtonListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -485,7 +485,7 @@ public class Cadastre extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(ButtonCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(ButtonListar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
         );
 
@@ -890,7 +890,12 @@ public class Cadastre extends javax.swing.JFrame {
 
             if (TCpf.getText() != "") {
                 pessoa = conec.buscaPessoa(TCpf.getText());
-                ButtonAlterar.setEnabled(true);
+                if(conec.recuperaNivel() == 1){
+                    ButtonAlterar.setEnabled(false);
+                }else {
+                    ButtonAlterar.setEnabled(true);
+                }
+                
             }
 
             if (pessoa == null) {
@@ -912,8 +917,12 @@ public class Cadastre extends javax.swing.JFrame {
 
             if (TCpf.getText() != "") {
                 aluno = conec.buscaAluno(TCpf.getText());
-                ButtonAlterar.setEnabled(true);
-            }
+                if(conec.recuperaNivel() == 1){
+                    ButtonAlterar.setEnabled(false);
+                }else {
+                    ButtonAlterar.setEnabled(true);
+                }
+            }   
 
             if (aluno == null) {
                 JOptionPane.showMessageDialog(null, "Aluno não encontrado!", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -938,7 +947,12 @@ public class Cadastre extends javax.swing.JFrame {
             Professor professor = null;
             if (TCpf.getText() != "") {
                 professor = conec.buscaProfessor(TCpf.getText());
-                ButtonAlterar.setEnabled(true);
+                if(conec.recuperaNivel() == 1){
+                    ButtonAlterar.setEnabled(false);
+                }else {
+                    ButtonAlterar.setEnabled(true);
+                }
+                
             }
 
             if (professor == null) {
@@ -969,7 +983,12 @@ public class Cadastre extends javax.swing.JFrame {
 
             if (TMatricula.getText() != "") {
                 egresso = conec.buscaEgresso(TMatricula.getText());
-                ButtonAlterar.setEnabled(true);
+                if(conec.recuperaNivel() == 1){
+                    ButtonAlterar.setEnabled(false);
+                }else {
+                    ButtonAlterar.setEnabled(true);
+                }
+                
             }
 
             if (egresso == null) {
@@ -995,9 +1014,12 @@ public class Cadastre extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TProfissaoActionPerformed
 
-    private void ButtonListar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonListar1ActionPerformed
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        setVisible(false);
+        menu.niveis();
+    }//GEN-LAST:event_botaoVoltarActionPerformed
 
     private void ButtonListar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListar2ActionPerformed
         if (Selector.getSelectedIndex() == 0) {
@@ -1060,7 +1082,6 @@ public class Cadastre extends javax.swing.JFrame {
     private javax.swing.JButton Buscar;
     private javax.swing.JButton ButtonAlterar;
     private javax.swing.JButton ButtonCadastro;
-    private javax.swing.JButton ButtonListar1;
     private javax.swing.JButton ButtonListar2;
     private javax.swing.JTextField PBairro;
     private javax.swing.JTextField PCargoChefia;
@@ -1082,6 +1103,7 @@ public class Cadastre extends javax.swing.JFrame {
     private javax.swing.JTextField TProfissao;
     private javax.swing.JTextField TSalario_Bruto;
     private javax.swing.JButton botaoPDF;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
