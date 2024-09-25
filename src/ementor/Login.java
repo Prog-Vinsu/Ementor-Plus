@@ -36,9 +36,12 @@ public class Login extends javax.swing.JFrame {
             ResultSet rsusuario = objusuario.autenticacaoUsuario(objusuario);
 
             if (rsusuario.next()) {  //.next() quer dizer que tem pelo menos 1 resultado
-                Cadastre telaCadastro = new Cadastre();
-                telaCadastro.niveis();
-                telaCadastro.setVisible(true);
+                Menu telaMenu = new Menu();
+                telaMenu.niveis();
+                telaMenu.setVisible(true);
+                //Cadastre telaCadastro = new Cadastre();
+                //telaCadastro.niveis();
+                //telaCadastro.setVisible(true);
 
                 dispose();           //para fechar a tela de login
             } else {
