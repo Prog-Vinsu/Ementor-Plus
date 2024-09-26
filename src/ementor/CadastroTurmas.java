@@ -4,6 +4,8 @@
  */
 package ementor;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Vincenzo
@@ -139,8 +141,12 @@ public class CadastroTurmas extends javax.swing.JFrame {
     }//GEN-LAST:event_TCodigoActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        ConexoesMySQL conec = new ConexoesMySQL();
-        conec.insereDadosTurmaNoMySQL(TCodigo.getText(), TNomeTurma.getText());
+        if (TCodigo.getText().isEmpty() || TNomeTurma.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Dados de cadastro incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }else {
+            ConexoesMySQL conec = new ConexoesMySQL();
+            conec.insereDadosTurmaNoMySQL(TCodigo.getText(), TNomeTurma.getText());
+        }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed

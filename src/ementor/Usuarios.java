@@ -4,8 +4,9 @@
  */
 package ementor;
 
-
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vincenzo
@@ -162,9 +163,14 @@ public class Usuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int Nivel_acesso = Integer.parseInt(UNivel_acesso.getText());
-        ConexoesMySQL conec = new ConexoesMySQL();
-        conec.insereUsuariosNoMySQL(ULogin.getText(), USenha.getText(), Nivel_acesso, UCpf.getText());
+        if (ULogin.getText().isEmpty() || USenha.getText().isEmpty() || UNivel_acesso.getText().isEmpty() || UCpf.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Dados de cadastro incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int Nivel_acesso = Integer.parseInt(UNivel_acesso.getText());
+            ConexoesMySQL conec = new ConexoesMySQL();
+            conec.insereUsuariosNoMySQL(ULogin.getText(), USenha.getText(), Nivel_acesso, UCpf.getText());
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ULoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ULoginActionPerformed

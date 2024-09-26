@@ -136,7 +136,6 @@ public class Cadastre extends javax.swing.JFrame {
         ButtonCadastro.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         ButtonCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-crie-um-novo-25.png"))); // NOI18N
         ButtonCadastro.setText("   Cadastrar");
-        ButtonCadastro.setEnabled(false);
         ButtonCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonCadastroActionPerformed(evt);
@@ -164,9 +163,8 @@ public class Cadastre extends javax.swing.JFrame {
             }
         });
 
-        ButtonAlterar.setBackground(new java.awt.Color(234, 210, 115));
-        ButtonAlterar.setFont(new java.awt.Font("Liberation Sans", 0, 16)); // NOI18N
-        ButtonAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonAlterar.setBackground(new java.awt.Color(244, 240, 231));
+        ButtonAlterar.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
         ButtonAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ementor/icons8-actualizar-24.png"))); // NOI18N
         ButtonAlterar.setText("   Alterar");
         ButtonAlterar.setEnabled(false);
@@ -833,49 +831,221 @@ public class Cadastre extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonAlterarActionPerformed
 
     private void botaoPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPDFActionPerformed
+if (Selector.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else if (Selector.getSelectedIndex() == 1) {
+            Document document = new Document();
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream("Pessoa.pdf"));
+                document.open();
 
-        Document document = new Document();
-        try {
-            PdfWriter.getInstance(document, new FileOutputStream("Aluno.pdf"));
-            document.open();
+                Date data = new Date();
+                DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
+                document.add(new Paragraph("Data da pesquisa: " +formatador.format(data)));
+                document.add(new Paragraph("Listagem de Pessoas: "));
+                document.add(new Paragraph("   "));
 
-            Date data = new Date();
-            DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
-            document.add(new Paragraph(formatador.format(data)));
-            document.add(new Paragraph("Listagem de aluunos"));
-            document.add(new Paragraph("   "));
+                PdfPTable tabela = new PdfPTable(8);
+                PdfPCell col1 = new PdfPCell(new Paragraph("Nome"));
+                tabela.addCell(col1);
+                PdfPCell col2 = new PdfPCell(new Paragraph("CPF"));
+                tabela.addCell(col2);
+                PdfPCell col3 = new PdfPCell(new Paragraph("Data de Nascimento"));
+                tabela.addCell(col3);
+                PdfPCell col4 = new PdfPCell(new Paragraph("Telefone"));
+                tabela.addCell(col4);
+                PdfPCell col5 = new PdfPCell(new Paragraph("Rua"));
+                tabela.addCell(col5);
+                PdfPCell col6 = new PdfPCell(new Paragraph("Bairro"));
+                tabela.addCell(col6);
+                PdfPCell col7 = new PdfPCell(new Paragraph("Cidade"));
+                tabela.addCell(col7);
+                PdfPCell col8 = new PdfPCell(new Paragraph("UF"));
+                tabela.addCell(col8);
 
-            ArrayList<Aluno> ListaAlunos = new ArrayList();
+                ArrayList<Pessoa> ListarPessoa = new ArrayList();
+                ConexoesMySQL conec = new ConexoesMySQL();
+                ListarPessoa = conec.recuperaDadosPessoaDoMySQL("Nome");
+                for (Pessoa obj : ListarPessoa) {
+                    tabela.addCell(obj.nome);
+                    tabela.addCell(String.valueOf(obj.CPF));
+                    tabela.addCell(obj.data_nascimento);
+                    tabela.addCell(obj.telefone);
+                    tabela.addCell(obj.rua);
+                    tabela.addCell(obj.bairro);
+                    tabela.addCell(obj.cidade);
+                    tabela.addCell(obj.estado);
+                }
 
-            ConexoesMySQL conec = new ConexoesMySQL();
-            ListaAlunos = conec.recuperaDadosAlunoDoMySQL("Nome");
+                document.add(tabela);
 
-            PdfPTable bela = new PdfPTable(6);
-            PdfPCell col1 = new PdfPCell(new Paragraph("Nome"));
-            bela.addCell(col1);
-            PdfPCell col2 = new PdfPCell(new Paragraph("CPF"));
-            bela.addCell(col2);
-            PdfPCell col3 = new PdfPCell(new Paragraph("Data de Nascimento"));
-            bela.addCell(col3);
-            PdfPCell col4 = new PdfPCell(new Paragraph("Telefone"));
-            bela.addCell(col4);
-            PdfPCell col5 = new PdfPCell(new Paragraph("Matricula"));
-            bela.addCell(col5);
-            PdfPCell col6 = new PdfPCell(new Paragraph("Período"));
-            bela.addCell(col6);
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                document.close();
+            }
+            
+            try {
+                Desktop.getDesktop().open(new File("Pessoa.pdf"));
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        } else if (Selector.getSelectedIndex() == 2) {
+            Document document = new Document();
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream("Aluno.pdf"));
+                document.open();
 
-            document.add(bela);
+                Date data = new Date();
+                DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
+                document.add(new Paragraph("Data da pesquisa: " +formatador.format(data)));
+                document.add(new Paragraph("Listagem de alunos"));
+                document.add(new Paragraph("   "));
 
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            document.close();
-        }
-        // Abrir pdf no leitor padrao do pc
-        try {
-            Desktop.getDesktop().open(new File("Aluno.pdf"));
-        } catch (Exception e2) {
-            System.out.println(e2);
+                PdfPTable tabela = new PdfPTable(6);
+                PdfPCell col1 = new PdfPCell(new Paragraph("Nome"));
+                tabela.addCell(col1);
+                PdfPCell col2 = new PdfPCell(new Paragraph("CPF"));
+                tabela.addCell(col2);
+                PdfPCell col3 = new PdfPCell(new Paragraph("Data de Nascimento"));
+                tabela.addCell(col3);
+                PdfPCell col4 = new PdfPCell(new Paragraph("Telefone"));
+                tabela.addCell(col4);
+                PdfPCell col5 = new PdfPCell(new Paragraph("Matricula"));
+                tabela.addCell(col5);
+                PdfPCell col6 = new PdfPCell(new Paragraph("Período"));
+                tabela.addCell(col6);
+
+                ArrayList<Aluno> ListaAlunos = new ArrayList();
+                ConexoesMySQL conec = new ConexoesMySQL();
+                ListaAlunos = conec.recuperaDadosAlunoDoMySQL("Nome");
+                for (Aluno obj : ListaAlunos) {
+                    tabela.addCell(obj.nome);
+                    tabela.addCell(String.valueOf(obj.CPF));
+                    tabela.addCell(obj.data_nascimento);
+                    tabela.addCell(obj.telefone);
+                    tabela.addCell(String.valueOf(obj.matricula));
+                    tabela.addCell(String.valueOf(obj.periodo));
+                }
+
+                document.add(tabela);
+
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                document.close();
+            }
+            
+            try {
+                Desktop.getDesktop().open(new File("Aluno.pdf"));
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        } else if (Selector.getSelectedIndex() == 3) {
+            Document document = new Document();
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream("Professor.pdf"));
+                document.open();
+
+                Date data = new Date();
+                DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
+                document.add(new Paragraph("Data da pesquisa: " +formatador.format(data)));
+                document.add(new Paragraph("Listagem de Professores: "));
+                document.add(new Paragraph("   "));
+
+                PdfPTable tabela = new PdfPTable(8);
+                PdfPCell col1 = new PdfPCell(new Paragraph("Nome"));
+                tabela.addCell(col1);
+                PdfPCell col2 = new PdfPCell(new Paragraph("CPF"));
+                tabela.addCell(col2);
+                PdfPCell col3 = new PdfPCell(new Paragraph("Data de Nascimento"));
+                tabela.addCell(col3);
+                PdfPCell col4 = new PdfPCell(new Paragraph("Telefone"));
+                tabela.addCell(col4);
+                PdfPCell col5 = new PdfPCell(new Paragraph("Data Admissão"));
+                tabela.addCell(col5);
+                PdfPCell col6 = new PdfPCell(new Paragraph("Salario Bruto"));
+                tabela.addCell(col6);
+                PdfPCell col7 = new PdfPCell(new Paragraph("Coordenação"));
+                tabela.addCell(col7);
+                PdfPCell col8 = new PdfPCell(new Paragraph("Chefia"));
+                tabela.addCell(col8);
+
+                ArrayList<Professor> ListaProfessor = new ArrayList();
+                ConexoesMySQL conec = new ConexoesMySQL();
+                ListaProfessor = conec.recuperaDadosProfessorDoMySQL("Nome");
+                for (Professor obj : ListaProfessor) {
+                    tabela.addCell(obj.nome);
+                    tabela.addCell(String.valueOf(obj.CPF));
+                    tabela.addCell(obj.data_nascimento);
+                    tabela.addCell(obj.telefone);
+                    tabela.addCell(obj.getData_admissao());
+                    tabela.addCell(String.valueOf(obj.getSalario_bruto()));
+                    tabela.addCell(String.valueOf(obj.isCargoCoordenador()));
+                    tabela.addCell(String.valueOf(obj.isCargoCoordenador()));
+                }
+
+                document.add(tabela);
+
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                document.close();
+            }
+            
+            try {
+                Desktop.getDesktop().open(new File("Professor.pdf"));
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        } else if (Selector.getSelectedIndex() == 4) {
+            Document document = new Document();
+            try {
+                PdfWriter.getInstance(document, new FileOutputStream("Egresso.pdf"));
+                document.open();
+
+                Date data = new Date();
+                DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
+                document.add(new Paragraph("Data da pesquisa: " +formatador.format(data)));
+                document.add(new Paragraph("Listagem de Egressos"));
+                document.add(new Paragraph("   "));
+
+                PdfPTable tabela = new PdfPTable(5);
+                PdfPCell col1 = new PdfPCell(new Paragraph("Matricula"));
+                tabela.addCell(col1);
+                PdfPCell col2 = new PdfPCell(new Paragraph("Profissao"));
+                tabela.addCell(col2);
+                PdfPCell col3 = new PdfPCell(new Paragraph("Curso Anterior"));
+                tabela.addCell(col3);
+                PdfPCell col4 = new PdfPCell(new Paragraph("Curso Atual"));
+                tabela.addCell(col4);
+                PdfPCell col5 = new PdfPCell(new Paragraph("Faixa Salarial"));
+                tabela.addCell(col5);
+
+                ArrayList<Egresso> ListaEgresso = new ArrayList();
+                ConexoesMySQL conec = new ConexoesMySQL();
+                ListaEgresso = conec.recuperaDadosEgressoDoMySQL();
+                for (Egresso obj : ListaEgresso) {
+                    tabela.addCell(String.valueOf(obj.matricula));
+                    tabela.addCell(obj.profissao_atual);
+                    tabela.addCell(obj.curso_anterior);
+                    tabela.addCell(obj.curso_atual);
+                    tabela.addCell(String.valueOf(obj.faixa_salarial));
+                }
+
+                document.add(tabela);
+
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                document.close();
+            }
+            
+            try {
+                Desktop.getDesktop().open(new File("Egresso.pdf"));
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
         }
 
     }//GEN-LAST:event_botaoPDFActionPerformed

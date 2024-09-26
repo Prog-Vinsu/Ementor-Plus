@@ -170,6 +170,7 @@ public class Menu extends javax.swing.JFrame {
     private void BotaoMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoMenuPrincipalActionPerformed
         Cadastre newCadastro = new Cadastre();
         newCadastro.setVisible(true);
+        newCadastro.niveis();
     }//GEN-LAST:event_BotaoMenuPrincipalActionPerformed
 
     private void botaoCadastroNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastroNovoUsuarioActionPerformed
