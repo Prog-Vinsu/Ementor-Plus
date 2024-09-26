@@ -1,0 +1,123 @@
+CREATE DATABASE ementor;
+USE ementor;
+
+CREATE TABLE Pessoa (CPF VARCHAR(11) PRIMARY KEY, Nome VARCHAR(45),
+Telefone VARCHAR(11), DataNascimento VARCHAR(10), Rua varchar(45), 
+Bairro varchar (45), Cidade varchar(45), Estado varchar(2));
+
+CREATE TABLE Usuario (CPFUsuario VARCHAR(11),
+	NomeUsuario VARCHAR(50) PRIMARY KEY,
+    Senha VARCHAR(50) NOT NULL,
+    NivelAcesso INT CHECK (NivelAcesso BETWEEN 1 AND 3),
+    FOREIGN KEY (CPFUsuario) REFERENCES Pessoa(CPF)
+);
+
+CREATE TABLE Professor (
+	CPFProfessor VARCHAR(11), DataAdmissao VARCHAR(10), CargoChefia BOOLEAN,
+    CargoCoordenacao BOOLEAN, SalarioBruto DOUBLE,
+    FOREIGN KEY (CPFProfessor) REFERENCES Pessoa(CPF)
+    );
+    
+CREATE TABLE Aluno (Matricula VARCHAR(45) Primary key, CPFAluno
+VARCHAR(11), Periodo INT, 	 
+FOREIGN KEY(CPFAluno) REFERENCES Pessoa(CPF));
+
+CREATE TABLE Egresso (MatriculaEgresso VARCHAR(45),
+Profissao Varchar(45), CursoAnterior varchar(45),
+CursoAtual varchar(45), FaixaSalarial DOUBLE,
+FOREIGN KEY(MatriculaEgresso) REFERENCES Aluno(Matricula));
+
+CREATE TABLE Turma (Codigo varchar(10) PRIMARY KEY, NomeTurma varchar(20));
+
+Create Table Notas(MatriculaAluno Varchar(45), CodigoTurma varchar(10),
+Nota1 double, Nota2 double, Nota3 double, Nota4 double, Nota5 double,
+Nota6 double, Nota7 double, Nota8 double, Nota9 double, Nota10 double, 
+FOREIGN KEY (MatriculaAluno) REFERENCES Aluno(Matricula),
+FOREIGN KEY (CodigoTurma) REFERENCES Turma(Codigo)
+);
+
+INSERT INTO Pessoa (CPF, Nome, Telefone, DataNascimento, Rua, Bairro, Cidade, Estado) 
+VALUES ('15903571751', 'Vincenzo', '997270573', '24/09/2002', 'Rua 12345', 'Centro', 'Sao Mateus', 'Es');
+
+INSERT INTO Pessoa (CPF, Nome, Telefone, DataNascimento, Rua, Bairro, Cidade, Estado) 
+VALUES ('12345678900', 'Pedro', '9999999', '31/12/1889', 'Rua Ayrton Senna', 'Sernamby', 'Sao Mateus', 'Es');
+
+INSERT INTO Pessoa (CPF, Nome, Telefone, DataNascimento, Rua, Bairro, Cidade, Estado) 
+VALUES ('99999999900', 'Ian', '999998888', '06/07/1730', 'Rua 3', 'Bairro 7', 'Colatina', 'Es');
+
+INSERT INTO Pessoa (CPF, Nome, Telefone, DataNascimento, Rua, Bairro, Cidade, Estado) 
+VALUES ('10020030099', 'João', '992345678', '19/03/2000', 'Rua 10', 'Bairro 200', 'Vitória', 'Es');
+INSERT INTO Turma (Codigo,NomeTurma) 
+VALUES ("DCE1023",'POO');
+
+INSERT INTO Turma (Codigo,NomeTurma) 
+VALUES ("DMA1020",'Calculo 3');
+
+INSERT INTO Turma (Codigo,NomeTurma) 
+VALUES ("DCE1234",'Banco de Dados');
+
+INSERT INTO Usuario(NomeUsuario, Senha, NivelAcesso, CPFUsuario)
+Values ('Pedrin','12345',1,'12345678900');
+
+INSERT INTO Usuario(NomeUsuario, Senha, NivelAcesso, CPFUsuario)
+Values ('Admin','admin',3,'15903571751');
+
+INSERT INTO Usuario(NomeUsuario, Senha, NivelAcesso, CPFUsuario)
+Values ('Ionn','eletron',1,'99999999900');
+
+INSERT INTO Usuario(NomeUsuario, Senha, NivelAcesso, CPFUsuario)
+Values ('Joao','123',2,'10020030099');
+
+INSERT INTO Aluno (Matricula,CPFAluno, Periodo) 
+VALUES ('2022200443','15903571751', 4);
+
+INSERT INTO Aluno (Matricula,CPFAluno, Periodo) 
+VALUES ('2022100123','12345678900', 5);
+
+INSERT INTO Aluno (Matricula,CPFAluno, Periodo) 
+VALUES ('2021100678','99999999900', 7);
+
+
+INSERT INTO Egresso (MatriculaEgresso,Profissao,CursoAnterior,CursoAtual,FaixaSalarial) 
+VALUES ('2021100678',"Engenheiro de Software", "Ciencias", "Engenharia", 3200);
+
+INSERT INTO Professor (CPFProfessor, DataAdmissao,CargoChefia, CargoCoordenacao, SalarioBruto) 
+VALUES ('10020030099',"10/03/208", False, True, 18600);
+
+INSERT INTO Notas (MatriculaAluno, CodigoTurma, Nota1, Nota2, Nota3, Nota4, Nota5, Nota6, Nota7, Nota8, Nota9, Nota10) VALUES ('2022100123', 'DCE1023', 6,4,5,3,1,8,4,8,7,8);
+INSERT INTO Notas (MatriculaAluno, CodigoTurma, Nota1, Nota2, Nota3, Nota4, Nota5, Nota6, Nota7, Nota8, Nota9, Nota10) VALUES ('2022100123', 'DMA1020', 9,7,6,8,4,5,8,5,6,7);
+INSERT INTO Notas (MatriculaAluno, CodigoTurma, Nota1, Nota2, Nota3, Nota4, Nota5, Nota6, Nota7, Nota8, Nota9, Nota10) VALUES ('2022100123', 'DCE1234', 9,10,3,6,4,7,3,4,6,7);
+INSERT INTO Notas (MatriculaAluno, CodigoTurma, Nota1, Nota2, Nota3, Nota4, Nota5, Nota6, Nota7, Nota8, Nota9, Nota10) VALUES ('2021100678', 'DCE1023', 8,8,6,5,8,9,7,4,3,5);
+INSERT INTO Notas (MatriculaAluno, CodigoTurma, Nota1, Nota2, Nota3, Nota4, Nota5, Nota6, Nota7, Nota8, Nota9, Nota10) VALUES ('2021100678', 'DCE1234', 7,8,4,5,9,10,4,6,3,5);
+
+Select * from Pessoa; 
+Select * from Aluno;
+Select * from Professor;
+Select * from Turma;
+Select * from Egresso;
+SELECT * from Usuario;
+Select * from notas;
+select * from Notas,Turma,Aluno where Aluno.Matricula = "2022100123" and  Aluno.Matricula = Notas.MatriculaAluno 
+and Turma.Codigo = "DCE1023" and Turma.Codigo = Notas.CodigoTurma;  
+SELECT  Pessoa.Nome,Turma.Codigo, Turma.NomeTurma, 
+Notas.Nota1, Notas.Nota2, Notas.Nota3, Notas.Nota4, Notas.Nota5, 
+Notas.Nota6, Notas.Nota7, Notas.Nota8, Notas.Nota9, Notas.Nota10
+FROM Aluno
+JOIN Pessoa ON Aluno.CPFAluno = Pessoa.CPF
+JOIN Notas ON Aluno.Matricula = Notas.MatriculaAluno
+JOIN Turma ON Notas.CodigoTurma = Turma.Codigo
+WHERE Aluno.Matricula = '2022100123'; 
+SELECT * FROM Pessoa, Aluno WHERE Pessoa.CPF=Aluno.CPFAluno; 
+SELECT * FROM Usuario,Pessoa WHERE Usuario.NomeUsuario = "Pedrin" and Usuario.Senha= "12345" and CPF = CPFUsuario; 
+
+SELECT * FROM Usuario WHERE Usuario.NomeUsuario = "Pedrin";
+
+drop table notas;
+drop table Turma;
+DROP TABLE Professor;
+drop table egresso;
+drop table Aluno;
+drop table usuario;
+DROP TABLE Pessoa;
+
+drop Database ementor;
