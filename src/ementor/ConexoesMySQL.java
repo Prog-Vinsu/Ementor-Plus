@@ -66,6 +66,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
 
         }
         desconectaMySQL(conexao);
@@ -99,6 +101,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
     }
@@ -133,7 +137,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
     }
@@ -155,6 +160,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
     }
@@ -173,6 +180,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
     }
@@ -201,6 +210,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
     }
@@ -237,6 +248,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Dados Atualizados com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         } finally {
             desconectaMySQL(conexao);  // Garante que a conexão será fechada
         }
@@ -275,6 +288,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Dados Atualizados com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         } finally {
             desconectaMySQL(conexao); 
         }
@@ -291,8 +306,8 @@ public class ConexoesMySQL {
             "ementor.pessoa.Cidade = ?, " +
             "ementor.pessoa.Estado = ?, " +
             "ementor.professor.SalarioBruto = ?, " +
-            "ementor.professor.DataAdmissao = ? " +
-            "ementor.professor.CargoChefia = ? " + 
+            "ementor.professor.DataAdmissao = ?, " +
+            "ementor.professor.CargoChefia = ?, " + 
             "ementor.professor.CargoCoordenacao = ? " +
             "WHERE ementor.pessoa.CPF = ?;";
 
@@ -315,7 +330,9 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Dados Atualizados com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
-        }
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
+        } 
         desconectaMySQL(conexao);
     }
     
@@ -346,6 +363,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Dados Atualizados com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         } finally {
             desconectaMySQL(conexao); 
         }
@@ -379,6 +398,8 @@ public class ConexoesMySQL {
             atuador_selecao_pessoa.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
         return pessoa;
@@ -411,6 +432,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
 
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
@@ -458,7 +481,9 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-        }
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
+        } 
         desconectaMySQL(conexao); 
         return notas;
     }
@@ -492,6 +517,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao); 
         return Academico;
@@ -523,7 +550,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
         return egresso;
@@ -552,6 +580,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao); 
         return turma;
@@ -578,6 +608,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
 
         } finally {
             desconectaMySQL(conexao); // Certifique-se de sempre fechar a conexão
@@ -616,8 +648,9 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
-        } finally {
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
+        }finally {
             desconectaMySQL(conexao); // Certifique-se de sempre fechar a conexão
         }
         return pessoa;
@@ -657,6 +690,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
 
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
@@ -699,6 +734,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
 
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
@@ -730,6 +767,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
         return egresso;
@@ -775,7 +814,8 @@ public class ConexoesMySQL {
             JOptionPane.showMessageDialog(null, "Dados Atualizados com Sucesso", "Salvar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao);
     }
@@ -806,7 +846,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
         return user;
@@ -840,7 +881,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         }
         desconectaMySQL(conexao); //Fecha a conexão do Banco de Dados
         return user;
@@ -866,7 +908,8 @@ public class ConexoesMySQL {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Algum imprevisto ocorreu: " + e + "", "ERRO", JOptionPane.ERROR_MESSAGE);
-
+            DadosEmDisco erro = new DadosEmDisco();
+            erro.adicionarErro("Erro: " + e.getMessage());
         } finally {
             desconectaMySQL(conexao); // Certifique-se de sempre fechar a conexão
         }

@@ -792,7 +792,7 @@ public class Cadastre extends javax.swing.JFrame {
             } else {
                 double Salario_bruto = Double.parseDouble(TSalario_Bruto.getText());
                 long CPF = Long.parseLong(TCpf.getText());
-
+                
                 ConexoesMySQL conec = new ConexoesMySQL();
                 conec.insereDadosProfessorNoMySQL(TNome.getText(), CPF, TData_Admissao.getText(), PCargoChefia.getText(), PCargoCoordenacao.getText(), Salario_bruto, TContato.getText(), TData_Nascimento.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
             }
@@ -812,21 +812,37 @@ public class Cadastre extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nenhuma opção foi selecionada!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         if (Selector.getSelectedIndex() == 1) {
-            ConexoesMySQL conec = new ConexoesMySQL();
-            conec.atualizaDadosPessoaNoMySQL(TCpf.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            if (TNome.getText().isEmpty() || TCpf.getText().isEmpty() || TContato.getText().isEmpty() || TData_Nascimento.getText().isEmpty() || PRua.getText().isEmpty() || PBairro.getText().isEmpty() || PCidade.getText().isEmpty() || PEstado.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ConexoesMySQL conec = new ConexoesMySQL();
+                conec.atualizaDadosPessoaNoMySQL(TCpf.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            }
         }
         if (Selector.getSelectedIndex() == 2) {
-            ConexoesMySQL conec = new ConexoesMySQL();
-            conec.atualizaDadosAlunoNoMySQL(TCpf.getText(), TMatricula.getText(), TPeriodo.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            if (TCpf.getText().isEmpty() || TMatricula.getText().isEmpty() || TPeriodo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ConexoesMySQL conec = new ConexoesMySQL();
+                conec.atualizaDadosAlunoNoMySQL(TCpf.getText(), TMatricula.getText(), TPeriodo.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            } 
         }
         if (Selector.getSelectedIndex() == 3) {
-            double Salario_bruto = Double.parseDouble(TSalario_Bruto.getText());
-            ConexoesMySQL conec = new ConexoesMySQL();
-            conec.atualizaDadosProfessorNoMySQL(TCpf.getText(), TData_Admissao.getText(), Salario_bruto, PCargoChefia.getText(), PCargoCoordenacao.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            if (TCpf.getText().isEmpty() || TData_Admissao.getText().isEmpty() || PCargoChefia.getText().isEmpty() || PCargoCoordenacao.getText().isEmpty() || TSalario_Bruto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                double Salario_bruto = Double.parseDouble(TSalario_Bruto.getText());
+                ConexoesMySQL conec = new ConexoesMySQL();
+                conec.atualizaDadosProfessorNoMySQL(TCpf.getText(), TData_Admissao.getText(), Salario_bruto, PCargoChefia.getText(), PCargoCoordenacao.getText(), TContato.getText(), PRua.getText(), PBairro.getText(), PCidade.getText(), PEstado.getText());
+            }
         }
         if (Selector.getSelectedIndex() == 4) {
-            ConexoesMySQL conec = new ConexoesMySQL();
-            conec.atualizaDadosEgressoNoMySQL(TMatricula.getText(), TProfissao.getText(), TCursoAnterior.getText(), TCursoAtual.getText(), TFaixaSalarial.getText());
+            if (TMatricula.getText().isEmpty() || TProfissao.getText().isEmpty() || TCursoAnterior.getText().isEmpty() || TCursoAtual.getText().isEmpty() || TFaixaSalarial.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Dados incompletos!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                ConexoesMySQL conec = new ConexoesMySQL();
+                conec.atualizaDadosEgressoNoMySQL(TMatricula.getText(), TProfissao.getText(), TCursoAnterior.getText(), TCursoAtual.getText(), TFaixaSalarial.getText());
+            }
         }
     }//GEN-LAST:event_ButtonAlterarActionPerformed
 
